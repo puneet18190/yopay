@@ -1,0 +1,71 @@
+- provide :page_title, 'Local Top Up'
+= simple_form_for @trx, url: transactions_path do |f|
+  .row
+    .col-12
+      .card
+        .card-block
+          .card-title Operator
+          .card-text.text-center
+            = f.collection_radio_buttons :operator_id, @operators, :id, :operator_name do |operator|
+              = operator.label do
+                = operator.radio_button
+                = operator.object.operator_name
+            -# - @operators.each do |a|
+            -#   = f.input :operator_id, as: :radio_buttons 
+            %div{'data-toggle':'buttons'}
+              .btn.btn-hotlink.m-2
+                %input{type: 'radio', name: 'test'}
+              .btn.btn-digi.m-2
+                %input{type: 'radio', name: 'test'}
+              .btn.btn-umobile.m-2
+                %input{type: 'radio', name: 'test'}
+              .btn.btn-tunetalk.m-2
+                %input{type: 'radio', name: 'test'}
+              .btn.btn-onexox.m-2
+                %input{type: 'radio', name: 'test'}
+              .btn.btn-xpax.m-2
+                %input{type: 'radio', name: 'test'}
+  .row.mt-5
+    .col-12
+      .card
+        .card-block
+          .card-title Amount
+          .card-text.text-center
+            %div{'data-toggle':'buttons'}
+              .btn.btn-radio.m-2
+                %input{type: 'radio', name: 'test'}
+                  .d-block RM
+                  .d-block 5
+              .btn.btn-radio.m-2
+                %input{type: 'radio', name: 'test'}
+                  .d-block RM
+                  .d-block 10
+              .btn.btn-radio.m-2
+                %input{type: 'radio', name: 'test'}
+                  .d-block RM
+                  .d-block 15
+              .btn.btn-radio.m-2
+                %input{type: 'radio', name: 'test'}
+                  .d-block RM
+                  .d-block 20
+              .btn.btn-radio.m-2
+                %input{type: 'radio', name: 'test'}
+                  .d-block RM
+                  .d-block 30
+              .btn.btn-radio.m-2
+                %input{type: 'radio', name: 'test'}
+                  .d-block RM
+                  .d-block 50
+              .btn.btn-radio.m-2.pt-0
+                .d-block.mb-1 Other Amount
+                %input.mw-7{type: 'text', name: 'test'}
+  .row.mt-5
+    .col-12
+      .card
+        .card-block
+          .card-title Phone Number
+          .card-text
+            = f.input :amount
+            = f.input :phone_number
+          .text-center
+            = f.submit class:'btn btn-red'

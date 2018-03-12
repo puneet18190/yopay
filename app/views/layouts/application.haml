@@ -1,0 +1,72 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+    %meta(name="mobile-web-app-capable" content="yes")
+    %meta(name="apple-mobile-web-app-capable" content="yes")
+    %title foxy
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body.bg-grey
+    #main
+      = render 'layouts/flashes'
+      .container-fluid
+        .row.full-height
+          .col-1.bg-red.text-center.py-5.pr-xs-25.px-md-1
+            = render 'layouts/menu'
+            %span#toggler= icon('bars', class: 'h-2-2 mt-3 text-white fa-2x hidden-xs-down')
+            = link_to root_path, class: 'text-deco-0' do
+              = icon('tachometer', class: 'h-2-2 mt-3 ml-sm-minus-2 d-block text-white fa-2x')
+              .span.text-white.mini-menu.text-truncate Dashboard
+            = link_to new_transaction_path, class: 'text-deco-0' do
+              = icon('caret-square-o-up', class: 'h-2-2 mt-3 ml-sm-minus-2 d-block text-white fa-2x')
+              .span.text-white.mini-menu.text-truncate Local TopUp
+            = link_to new_international_top_up_path, class: 'text-deco-0' do
+              = icon('external-link', class: 'h-2-2 mt-3 ml-sm-minus-2 d-block text-white fa-2x')
+              .span.text-white.mini-menu.text-truncate International TopUp
+            = link_to new_pin_path, class: 'text-deco-0' do
+              = icon('th', class: 'h-2-2 mt-3 ml-sm-minus-2 d-block text-white fa-2x')
+              .span.text-white.mini-menu.text-truncate Pin
+            = link_to '', class: 'text-deco-0' do
+              = icon('file-text-o', class: 'h-2-2 mt-3 ml-sm-minus-2 d-block text-white fa-2x')
+              .span.text-white.mini-menu.text-truncate Bill Payment
+            = link_to transactions_path, class: 'text-deco-0' do
+              = icon('history', class: 'h-2-2 mt-3 ml-sm-minus-2 d-block text-white fa-2x')
+              .span.text-white.mini-menu.text-truncate Transaction History
+            = link_to wallets_path, class: 'text-deco-0' do
+              = icon('money', class: 'h-2-2 mt-3 ml-sm-minus-2 d-block text-white fa-2x')
+              .span.text-white.mini-menu.text-truncate E-Wallet
+            = link_to new_reload_path, class: 'text-deco-0' do
+              = icon('money', class: 'h-2-2 mt-3 ml-sm-minus-2 d-block text-white fa-2x')
+              .span.text-white.mini-menu.text-truncate Wallet Reload
+            = link_to '', class: 'text-deco-0' do
+              = icon('user', class: 'h-2-2 mt-3 d-block text-white fa-2x')
+              .span.text-white.mini-menu.text-truncate My Account
+            = link_to '', class: 'text-deco-0' do
+              = icon('id-card-o', class: 'h-2-2 mt-3 ml-sm-minus-2 d-block text-white fa-2x')
+              .span.text-white.mini-menu.text-truncate Agent Registration
+            = link_to '', class: 'text-deco-0' do
+              = icon('question', class: 'h-2-2 mt-3 d-block text-white fa-2x')
+              .span.text-white.mini-menu.text-truncate Help
+          .col-11.mw-xs-87
+            .row.m-md-5.m-1
+              .col
+                .row.mb-3
+                  .col-12.col-sm-8.text-left
+                    .h1.text-main.font-weight-200= content_for :page_title
+                  .col.text-right
+                    = icon('usd', class: 'text-main fa-2x')
+                    .btn.bg-red
+                      .text-white.rounded-0
+                        = current_user.wallet.balance if current_user.present? && current_user.wallet.balance?
+
+                = yield
+= content_for :extra_javascript
+:javascript
+  $(function() {
+    $("#toggler").click(function(){
+        $("#main").toggleClass("toggle-sidebar");
+    });
+  });
